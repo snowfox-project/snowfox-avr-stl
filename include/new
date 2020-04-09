@@ -1,4 +1,6 @@
 #ifndef SNOWFOX_AVR_STL_NEW_H_
 #define SNOWFOX_AVR_STL_NEW_H_
 
+#include <snowfox/cpu/avr/cxx.h>
+
 #endif /* SNOWFOX_AVR_STL_NEW_H_ */

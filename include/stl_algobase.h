@@ -49,7 +49,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <stddef.h>
-#include <new.h>
+#include <new>
 
 #ifndef __SGI_STL_INTERNAL_ITERATOR_H
 #include <stl_iterator_base.h>
