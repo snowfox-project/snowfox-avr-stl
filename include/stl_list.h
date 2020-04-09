@@ -200,13 +200,13 @@ public:
   typedef typename _Base::allocator_type allocator_type;
 
   _List_base(const allocator_type& __a) : _Base(__a) {
-    _M_node = _M_get_node();
-    _M_node->_M_next = _M_node;
-    _M_node->_M_prev = _M_node;
+    _Base::_M_node = _Base::_M_get_node();
+    _Base::_M_node->_M_next = _Base::_M_node;
+    _Base::_M_node->_M_prev = _Base::_M_node;
   }
   ~_List_base() {
     clear();
-    _M_put_node(_M_node);
+    _M_put_node(_Base::_M_node);
   }
 
   void clear();
@@ -248,15 +248,15 @@ template <class _Tp, class _Alloc>
 void 
 _List_base<_Tp,_Alloc>::clear() 
 {
-  _List_node<_Tp>* __cur = (_List_node<_Tp>*) _M_node->_M_next;
-  while (__cur != _M_node) {
+  _List_node<_Tp>* __cur = (_List_node<_Tp>*) _Base::_M_node->_M_next;
+  while (__cur != _Base::_M_node) {
     _List_node<_Tp>* __tmp = __cur;
     __cur = (_List_node<_Tp>*) __cur->_M_next;
     _Destroy(&__tmp->_M_data);
     _M_put_node(__tmp);
   }
-  _M_node->_M_next = _M_node;
-  _M_node->_M_prev = _M_node;
+  _Base::_M_node->_M_next = _Base::_M_node;
+  _Base::_M_node->_M_prev = _Base::_M_node;
 }
 
 template <class _Tp, class _Alloc = __STL_DEFAULT_ALLOCATOR(_Tp) >
@@ -287,13 +287,13 @@ public:
   typedef _List_iterator<_Tp,const _Tp&,const _Tp*> const_iterator;
 
 #ifdef __STL_CLASS_PARTIAL_SPECIALIZATION
-  typedef reverse_iterator<const_iterator> const_reverse_iterator;
-  typedef reverse_iterator<iterator>       reverse_iterator;
+  typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+  typedef std::reverse_iterator<iterator>       reverse_iterator;
 #else /* __STL_CLASS_PARTIAL_SPECIALIZATION */
-  typedef reverse_bidirectional_iterator<const_iterator,value_type,
+  typedef std::reverse_bidirectional_iterator<const_iterator,value_type,
                                          const_reference,difference_type>
           const_reverse_iterator;
-  typedef reverse_bidirectional_iterator<iterator,value_type,reference,
+  typedef std::reverse_bidirectional_iterator<iterator,value_type,reference,
                                          difference_type>
           reverse_iterator; 
 #endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */

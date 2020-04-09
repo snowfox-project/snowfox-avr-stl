@@ -38,6 +38,9 @@
 // The allocation primitives are intended to allocate individual objects,
 // not larger arenas as with the original STL allocators.
 
+#ifdef __AVR__
+#define __THROW_BAD_ALLOC { exit(0); }		// this will intentionally hang the MCU
+#else
 #ifndef __THROW_BAD_ALLOC
 #  if defined(__STL_NO_BAD_ALLOC) || !defined(__STL_USE_EXCEPTIONS)
 #    include <stdio.h>
@@ -47,6 +50,7 @@
 #    include <new>
 #    define __THROW_BAD_ALLOC throw std::bad_alloc()
 #  endif
+#endif
 #endif
 
 #include <stddef.h>

@@ -2637,17 +2637,7 @@ inline bool operator!= (const _Rope_char_ptr_proxy<_CharT,_Alloc>& __x,
 }
 
 #endif /* __STL_FUNCTION_TMPL_PARTIAL_ORDER */
-
-#ifdef __STL_USE_NEW_IOSTREAMS
-  template<class _CharT, class _Traits, class _Alloc>
-  basic_ostream<_CharT, _Traits>& operator<<
-                                        (basic_ostream<_CharT, _Traits>& __o,
-                                         const rope<_CharT, _Alloc>& __r);
-#else
-  template<class _CharT, class _Alloc>
-  ostream& operator<< (ostream& __o, const rope<_CharT, _Alloc>& __r);
-#endif
-        
+      
 typedef rope<char> crope;
 typedef rope<wchar_t> wrope;
 

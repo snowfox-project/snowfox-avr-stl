@@ -1,0 +1,4 @@
+#ifndef SNOWFOX_AVR_STL_NEW_H_
+#define SNOWFOX_AVR_STL_NEW_H_
+
+#endif /* SNOWFOX_AVR_STL_NEW_H_ */

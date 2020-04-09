@@ -109,12 +109,12 @@ struct _Vector_base
 
   _Vector_base(const allocator_type& __a) : _Base(__a) {}
   _Vector_base(size_t __n, const allocator_type& __a) : _Base(__a) {
-    _M_start = _M_allocate(__n);
-    _M_finish = _M_start;
-    _M_end_of_storage = _M_start + __n;
+    _Base::_M_start = _Base::_M_allocate(__n);
+    _Base::_M_finish = _Base::_M_start;
+    _Base::_M_end_of_storage = _Base::_M_start + __n;
   }
 
-  ~_Vector_base() { _M_deallocate(_M_start, _M_end_of_storage - _M_start); }
+  ~_Vector_base() { _M_deallocate(_Base::_M_start, _Base::_M_end_of_storage - _Base::_M_start); }
 };    
 
 #else /* __STL_USE_STD_ALLOCATORS */
@@ -161,11 +161,10 @@ class vector : protected _Vector_base<_Tp, _Alloc>
 private:
   typedef _Vector_base<_Tp, _Alloc> _Base;
 public:
-  // vector 的嵌套类型定义
   typedef _Tp value_type;
   typedef value_type* pointer;
   typedef const value_type* const_pointer;
-  typedef value_type* iterator;   // vector的迭代器是普通指针
+  typedef value_type* iterator;
   typedef const value_type* const_iterator;
   typedef value_type& reference;
   typedef const value_type& const_reference;
@@ -176,12 +175,12 @@ public:
   allocator_type get_allocator() const { return _Base::get_allocator(); }
 
 #ifdef __STL_CLASS_PARTIAL_SPECIALIZATION
-  typedef reverse_iterator<const_iterator> const_reverse_iterator;
-  typedef reverse_iterator<iterator> reverse_iterator;
+  typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+  typedef std::reverse_iterator<iterator> reverse_iterator;
 #else /* __STL_CLASS_PARTIAL_SPECIALIZATION */
-  typedef reverse_iterator<const_iterator, value_type, const_reference, 
+  typedef std::reverse_iterator<const_iterator, value_type, const_reference,
                            difference_type>  const_reverse_iterator;
-  typedef reverse_iterator<iterator, value_type, reference, difference_type>
+  typedef std::reverse_iterator<iterator, value_type, reference, difference_type>
           reverse_iterator;
 #endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */
 
@@ -189,9 +188,9 @@ protected:
 #ifdef __STL_HAS_NAMESPACES
   using _Base::_M_allocate;
   using _Base::_M_deallocate;
-  using _Base::_M_start;   // 表示目前使用的空间头
-  using _Base::_M_finish;  // 表示目前使用的空间尾
-  using _Base::_M_end_of_storage;   // 表示目前可用的空间的尾
+  using _Base::_M_start;
+  using _Base::_M_finish;
+  using _Base::_M_end_of_storage;
 #endif /* __STL_HAS_NAMESPACES */
 
 protected:
@@ -698,10 +697,8 @@ void vector<_Tp, _Alloc>::_M_fill_insert(iterator __position, size_type __n,
                                          const _Tp& __x)
 {
   if (__n != 0) {
-      // 备用空间大于新增元素个数
     if (size_type(_M_end_of_storage - _M_finish) >= __n) {
       _Tp __x_copy = __x;
-      // 计算插入点之后的现有元素个数。
       const size_type __elems_after = _M_finish - __position;
       iterator __old_finish = _M_finish;
       if (__elems_after > __n) {

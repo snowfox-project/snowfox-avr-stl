@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 
 ##########################################################################
 
-add_library(stl INTERFACE)
-target_include_directories(stl INTERFACE include)
+add_library(avr-stl INTERFACE)
+target_include_directories(avr-stl INTERFACE include)
 
 ##########################################################################

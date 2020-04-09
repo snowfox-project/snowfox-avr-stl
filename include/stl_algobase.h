@@ -51,12 +51,6 @@
 #include <stddef.h>
 #include <new.h>
 
-#ifdef __STL_USE_NEW_IOSTREAMS 
-#include <iosfwd>
-#else /* __STL_USE_NEW_IOSTREAMS */
-#include <iostream.h>
-#endif /* __STL_USE_NEW_IOSTREAMS */
-
 #ifndef __SGI_STL_INTERNAL_ITERATOR_H
 #include <stl_iterator_base.h>
 #include <stl_iterator.h>

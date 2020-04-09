@@ -30,7 +30,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <limits.h>
-#include <iostream.h>
 #include <algobase.h>
 
 

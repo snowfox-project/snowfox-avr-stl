@@ -141,6 +141,26 @@
 // * __stl_assert, either as a test or as a null macro, depending on
 //   whether or not __STL_ASSERTIONS is defined.
 
+#if defined(__AVR__)
+
+#define __STL_NO_DRAND48
+#define __STL_NO_BAD_ALLOC
+#define __STL_PARTIAL_SPECIALIZATION_SYNTAX
+#define __STL_CLASS_PARTIAL_SPECIALIZATION
+#define __STL_FUNCTION_TMPL_PARTIAL_ORDER
+#define __STL_EXPLICIT_FUNCTION_TMPL_ARGS
+#define __STL_MEMBER_TEMPLATES
+#define __STL_MEMBER_TEMPLATE_CLASSES
+#define __STL_TEMPLATE_FRIENDS
+#define __SGI_STL_USE_AUTO_PTR_CONVERSIONS
+#define __STL_HAS_NAMESPACES
+#define __STL_USE_NAMESPACES
+#define __STL_MEMBER_TEMPLATE_KEYWORD
+#define _NOTHREADS
+
+#endif
+
+
 # if defined(_PTHREADS) && !defined(_NOTHREADS)
 #     define __STL_PTHREADS
 # endif
