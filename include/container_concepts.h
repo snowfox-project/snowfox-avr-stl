@@ -30,7 +30,7 @@
 
 struct _ERROR_IN_STL_CONTAINER {
 
-  /* Container expresssions */
+  /* Container expressions */
 
   template <class _Container>
   static void

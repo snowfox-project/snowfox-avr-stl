@@ -59,7 +59,7 @@ inline bool _S_is_basic_char_type(char*) { return true; }
 inline bool _S_is_one_byte_char_type(char*) { return true; }
 inline bool _S_is_basic_char_type(wchar_t*) { return true; }
 
-// Store an eos iff _CharT is a basic character type.
+// Store an eos if _CharT is a basic character type.
 // Do not reference _S_eos if it isn't.
 template <class _CharT>
 inline void _S_cond_store_eos(_CharT&) {}
@@ -323,7 +323,7 @@ identity_element(_Rope_Concat_fn<_CharT, _Alloc>)
 // that doesn't work, since it makes it impossible to define generic
 // equality on rope iterators.  According to the draft standard, the
 // template parameters for such an equality operator cannot be inferred
-// from the occurence of a member class as a parameter.
+// from the occurrence of a member class as a parameter.
 // (SGI compilers in fact allow this, but the __result wouldn't be
 // portable.)
 // Similarly, some of the static member functions are member functions
@@ -350,7 +350,7 @@ identity_element(_Rope_Concat_fn<_CharT, _Alloc>)
 // with different definitions of __ROPE_DEFINE_ALLOC.
 // __ROPE_DEFINE_ALLOC(type,name) defines 
 //   type * name_allocate(size_t) and
-//   void name_deallocate(tipe *, size_t)
+//   void name_deallocate(type *, size_t)
 // Both functions may or may not be static.
 
 #define __ROPE_DEFINE_ALLOCS(__a) \
@@ -559,7 +559,7 @@ struct _Rope_RopeLeaf : public _Rope_RopeRep<_CharT,_Alloc> {
   public:
     // Apparently needed by VC++
     // The data fields of leaves are allocated with some
-    // extra space, to accomodate future growth and for basic
+    // extra space, to accommodate future growth and for basic
     // character types, to hold a trailing eos character.
     enum { _S_alloc_granularity = 8 };
     static size_t _S_rounded_up_size(size_t __n) {
@@ -897,7 +897,7 @@ class _Rope_iterator_base
   public:
     typedef _Alloc _allocator_type; // used in _Rope_rotate, VC++ workaround
     typedef _Rope_RopeRep<_CharT,_Alloc> _RopeRep;
-        // Borland doesnt want this to be protected.
+        // Borland does not want this to be protected.
   protected:
     enum { _S_path_cache_len = 4 }; // Must be <= 9.
     enum { _S_iterator_buf_len = 15 };
@@ -922,7 +922,7 @@ class _Rope_iterator_base
                         // point to concatenation nodes.
     unsigned char _M_path_directions;
                           // (path_directions >> __i) & 1 is 1
-                          // iff we got from _M_path_end[leaf_index - __i - 1]
+                          // if we got from _M_path_end[leaf_index - __i - 1]
                           // to _M_path_end[leaf_index - __i] by going to the
                           // __right. Assumes path_cache_len <= 9.
     _CharT _M_tmp_buf[_S_iterator_buf_len];
@@ -1456,7 +1456,7 @@ class rope : public _Rope_base<_CharT,_Alloc> {
                                           const _CharT* __iter, size_t __slen)
                 // As above, but one reference to __r is about to be
                 // destroyed.  Thus the pieces may be recycled if all
-                // relevent reference counts are 1.
+                // relevant reference counts are 1.
 #           ifdef __GC
                 // We can't really do anything since refcounts are unavailable.
                 { return _S_concat_char_iter(__r, __iter, __slen); }

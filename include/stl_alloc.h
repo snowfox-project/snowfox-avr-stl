@@ -739,7 +739,7 @@ inline bool operator!=(const __allocator<_Tp, _Alloc>& __a1,
 }
 #endif /* __STL_FUNCTION_TMPL_PARTIAL_ORDER */
 
-// Comparison operators for all of the predifined SGI-style allocators.
+// Comparison operators for all of the predefined SGI-style allocators.
 // This ensures that __allocator<malloc_alloc> (for example) will
 // work correctly.
 
