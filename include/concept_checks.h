@@ -567,6 +567,9 @@ template <class _TrivialIterator>
 struct _TrivialIterator_concept_specification {
 static void
 _TrivialIterator_requirement_violation(_TrivialIterator __i) {
+  typedef typename
+    __value_type_type_definition_requirement_violation<_TrivialIterator>::
+    value_type __T;
   // Refinement of Assignable
   _Assignable_concept_specification<_TrivialIterator>::
     _Assignable_requirement_violation(__i);

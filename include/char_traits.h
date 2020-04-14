@@ -15,7 +15,10 @@
 #define __SGI_STL_CHAR_TRAITS_H
 
 #include <string.h>
+
+#ifndef __AVR__
 #include <wchar.h>
+#endif
 
 __STL_BEGIN_NAMESPACE
 
@@ -25,6 +28,13 @@ template <class _CharT, class _IntT> class __char_traits_base {
 public:
   typedef _CharT char_type;
   typedef _IntT int_type;
+
+#ifdef __AVR__
+  typedef signed int char_traits_off_type;
+	typedef char state_type;
+	typedef char_traits_off_type off_type;
+  typedef char_traits_off_type pos_type;
+#endif // __AVR__
 
   static void assign(char_type& __c1, const char_type& __c2) { __c1 = __c2; }
   static bool eq(const _CharT& __c1, const _CharT& __c2) 
@@ -126,12 +136,13 @@ public:
     { memset(__s, __c, __n); return __s; }
 };
 
+#ifndef __AVR__
 // Specialization for wchar_t.
 
 __STL_TEMPLATE_NULL class char_traits<wchar_t>
   : public __char_traits_base<wchar_t, wint_t>
 {};
-
+#endif // ! __AVR__
 
 __STL_END_NAMESPACE
 

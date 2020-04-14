@@ -481,7 +481,7 @@ public:
   }
 
   subtractive_rng(unsigned int __seed) { _M_initialize(__seed); }
-  subtractive_rng() { _M_initialize(161803398u); }
+  subtractive_rng() { _M_initialize(16180u); }
 };
 
 

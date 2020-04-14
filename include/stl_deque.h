@@ -373,9 +373,9 @@ protected:
 
 template <class _Tp, class _Alloc>
 _Deque_base<_Tp,_Alloc>::~_Deque_base() {
-  if (_M_map) {
+  if (_Base::_M_map) {
     _M_destroy_nodes(_M_start._M_node, _M_finish._M_node + 1);
-    _M_deallocate_map(_M_map, _M_map_size);
+    _Base::_M_deallocate_map(_Base::_M_map, _Base::_M_map_size);
   }
 }
 
@@ -386,10 +386,10 @@ _Deque_base<_Tp,_Alloc>::_M_initialize_map(size_t __num_elements)
   size_t __num_nodes = 
     __num_elements / __deque_buf_size(sizeof(_Tp)) + 1;
 
-  _M_map_size = max((size_t) _S_initial_map_size, __num_nodes + 2);
-  _M_map = _M_allocate_map(_M_map_size);
+  _Base::_M_map_size = max((size_t) _S_initial_map_size, __num_nodes + 2);
+  _Base::_M_map = _Base::_M_allocate_map(_Base::_M_map_size);
 
-  _Tp** __nstart = _M_map + (_M_map_size - __num_nodes) / 2;
+  _Tp** __nstart = _Base::_M_map + (_Base::_M_map_size - __num_nodes) / 2;
   _Tp** __nfinish = __nstart + __num_nodes;
     
   __STL_TRY {
@@ -410,7 +410,7 @@ void _Deque_base<_Tp,_Alloc>::_M_create_nodes(_Tp** __nstart, _Tp** __nfinish)
   _Tp** __cur;
   __STL_TRY {
     for (__cur = __nstart; __cur < __nfinish; ++__cur)
-      *__cur = _M_allocate_node();
+      *__cur = _Base::_M_allocate_node();
   }
   __STL_UNWIND(_M_destroy_nodes(__nstart, __cur));
 }
@@ -420,7 +420,7 @@ void
 _Deque_base<_Tp,_Alloc>::_M_destroy_nodes(_Tp** __nstart, _Tp** __nfinish)
 {
   for (_Tp** __n = __nstart; __n < __nfinish; ++__n)
-    _M_deallocate_node(*__n);
+    _Base::_M_deallocate_node(*__n);
 }
 
 template <class _Tp, class _Alloc = __STL_DEFAULT_ALLOCATOR(_Tp) >
@@ -448,8 +448,8 @@ public:                         // Iterators
   typedef typename _Base::const_iterator const_iterator;
 
 #ifdef __STL_CLASS_PARTIAL_SPECIALIZATION
-  typedef reverse_iterator<const_iterator> const_reverse_iterator;
-  typedef reverse_iterator<iterator> reverse_iterator;
+  typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+  typedef std::reverse_iterator<iterator> reverse_iterator;
 #else /* __STL_CLASS_PARTIAL_SPECIALIZATION */
   typedef reverse_iterator<const_iterator, value_type, const_reference, 
                            difference_type>  
@@ -1348,7 +1348,7 @@ void deque<_Tp,_Alloc>::_M_insert_aux(iterator __pos,
 {
   const difference_type __elemsbefore = __pos - _M_start;
   size_type __length = size();
-  if (__elemsbefore < __length / 2) {
+  if ((unsigned long)__elemsbefore < __length / 2) {
     iterator __new_start = _M_reserve_elements_at_front(__n);
     iterator __old_start = _M_start;
     __pos = _M_start + __elemsbefore;
